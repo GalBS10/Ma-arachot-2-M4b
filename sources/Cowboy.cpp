@@ -13,8 +13,17 @@ Cowboy::Cowboy(string _name, Point _place)
 
 string Cowboy::print()
 {
-    if(isAlive())
-    cout << "C " << getName() << " " << getHP() << " " << getPlace() << " " << bullets_amount <<endl;//its only print to screen need to save as string
+    string print = "";
+    if(isAlive()){
+
+        print = "C " + getName() + " " + to_string(getHP()) + " (" + to_string(getPlace().getX())  + "," \
+        + to_string(getPlace().getY()) + ")" + to_string(bullets_amount);
+    }
+    else{
+        print = "C (" + getName() + ")";
+    }
+    return print;
+    
 }
 
 int Cowboy::getBullets()

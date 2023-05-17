@@ -7,12 +7,13 @@ Ninja::Ninja(Point _place, int _HP, string _name, int _speed) : Character(_place
 
 void Ninja::slash(Character* enemy)
 {
+    
 
 }
-// string Ninja::print()
-// {
-//     return "";
-// }
+string Ninja::print()
+{
+    return "Ninja";
+}
 
 void Ninja::move(Character *enemy)
 {

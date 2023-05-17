@@ -13,7 +13,7 @@ private:
 public:
     Point(double x_plain, double y_plain );
     double distance(Point other);
-    friend ostream& operator<<(std::ostream& os, const Point& point);
+    void print();
     Point moveTowards(Point origin, Point destination, double distance);
     double getX();
     double getY();

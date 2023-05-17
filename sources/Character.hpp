@@ -12,19 +12,25 @@ private:
 
 public:
     Character(Point _place, int hitpoint, std::string _name);
-    virtual ~Character();
     Character(const Character& other);
+    //each chcaracter has a different destructor therefore need virtual
+    virtual ~Character();
+
     Character& operator=(const Character& other); // Copy assignment operator
     Character(Character&& other) noexcept; // Move constructor
     Character& operator=(Character&& other) noexcept; // Move assignment operator
+
+    //all kinds of character do the same therefore there is no need of virtual
     bool isAlive();
     double distance(Character* other);
     void hit(int damage);
-    std::string getName();
+    string getName();
     Point getLoactaion();
     int getHP();
     Point getPlace();
-    // virtual std::string print();
+
+    //each chcaracter has a different print therefore need virtual
+    virtual string print();
 };
 
 #endif

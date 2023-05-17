@@ -63,7 +63,7 @@ Point Character::getLoactaion(){
     return place;
 }
 
-// string Character::print()
-// {
-//     return "";
-// }
+string Character::print()
+{
+    return "Character";
+}

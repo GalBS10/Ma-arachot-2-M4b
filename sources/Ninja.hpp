@@ -10,7 +10,7 @@ private:
 public:
     Ninja( Point _place, int hitpoint, string _name, int _speed);
     void slash(Character* enemy);
-    // string print() override;
+    string print() override;
     virtual void move(Character *enemy);
 };
 #endif
