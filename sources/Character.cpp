@@ -46,6 +46,9 @@ int Character::getHP(){
 Point Character::getPlace(){
     return place;
 }
+void Character::setPlace(const Point& new_place){
+    this->place = new_place;
+}
 double Character::distance(Character* other){
     return place.distance(other->place);
 }
@@ -59,9 +62,9 @@ string Character::getName(){
     return name;
 }
 
-Point Character::getLoactaion(){
-    return place;
-}
+// Point Character::getLoactaion(){
+//     return place;
+// }
 
 string Character::print()
 {

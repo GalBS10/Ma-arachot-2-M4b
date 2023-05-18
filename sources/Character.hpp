@@ -25,9 +25,10 @@ public:
     double distance(Character* other);
     void hit(int damage);
     string getName();
-    Point getLoactaion();
+    // Point getLoactaion();
     int getHP();
     Point getPlace();
+    void setPlace(const Point& new_place);
 
     //each chcaracter has a different print therefore need virtual
     virtual string print();
