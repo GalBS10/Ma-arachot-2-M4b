@@ -59,36 +59,51 @@ void Team::attack(Team* enemy_team){
     if(enemy_team == NULL){
         throw runtime_error ("enemy team is null");
     }
+    cout << "in team : 1" << endl;
     if(this->stillAlive()==0){
         throw runtime_error ("enemy team is alredy dead");
     }
+    cout << "in team : 2" << endl;
     if(!leader->isAlive()){
         set_closest(this);
     }
+    cout << "in team : 3" << endl;
     Character* victim = set_closest(enemy_team);
+    int c = 0;
     for(Character* member : team){
+        c++;
+        cout << "in team : c = " << c << endl;
         if(enemy_team->stillAlive() == 0){
             return;
         }
         if(!victim->isAlive()){
             victim = set_closest(enemy_team);
         }
-        if(victim->getType()==1){//The Character is a Ninja
+        if(victim->getType()==1){//The Character is a Cowboy
             Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
             tmp_cowboy->shoot(victim);
         }
     }
+    cout << "in team : 4" << endl;
+    c = 1;
     for(Character* member : team){
+        cout << "in team : c = " << c << endl;
         if(enemy_team->stillAlive() == 0){
             return;
         }
+        cout << "in team : c = " << c << endl;
         if(!victim->isAlive()){
             victim = set_closest(enemy_team);
         }
+        cout << "in team : c = " << c << endl;
         if(victim->getType()==0){//The Character is a Ninja
+            cout << "here" << endl;
             Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
+             cout << "here2" << endl;
             tmp_ninja->slash(victim);
+             cout << "here3" << endl;
         }
+        cout << "in team : c = " << c << endl;
     }
 }
 

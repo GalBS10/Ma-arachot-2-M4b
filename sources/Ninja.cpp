@@ -7,11 +7,15 @@ Ninja::Ninja(Point _place, int _HP, string _name, int _speed) : Character(_place
 
 void Ninja::slash(Character* enemy)
 {
+     cout << "in slash" << endl;
     if(isAlive()){
-        if(this->distance(enemy)<1){
+        cout << "in slash : in if 1" << endl;
+        if(this->distance(enemy) < 1){
+            cout << "in slash : in if 2" << endl;
             enemy->hit(40);
         }
         else{
+            cout << "in slash in else" << endl;
             this->move(enemy);
         }
     }

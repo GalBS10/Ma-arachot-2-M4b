@@ -20,5 +20,6 @@ OldNinja::OldNinja(string _name, Point _place) : Ninja( _place, 150, _name, 8)
 // }
 void OldNinja::move(Character *enemy)
 {
+     cout << "in move of old ninja" << endl;
     this->setPlace(this->getLocation().moveTowards(this->getLocation(),enemy->getLocation(),8));//may causee some problems.
 }

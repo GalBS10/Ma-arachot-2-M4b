@@ -18,6 +18,7 @@ using namespace ariel;
 
 
 int main() {
+   cout << "1" << endl;
     Point a(32.3,44),b(1.3,3.5);
     assert(a.distance(b) == b.distance(a));
     Cowboy *tom = new Cowboy("Tom", a);
@@ -35,10 +36,13 @@ int main() {
 
      Team team_B(sushi);
      team_B.add(new TrainedNinja("Hikari", Point(12,81)));
+     cout << "2" << endl;
 
-
+      int counter = 0;
      while(team_A.stillAlive() > 0 && team_B.stillAlive() > 0){
-        team_A.attack(&team_B);
+         counter++;
+         cout << "counter = " << counter << endl;
+        team_A.attack(&team_B);//problem is here.
         team_B.attack(&team_A);
         team_A.print();
         team_B.print();

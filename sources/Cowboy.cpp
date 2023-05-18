@@ -17,7 +17,7 @@ string Cowboy::print()
     if(isAlive()){
 
         print = "C " + getName() + " " + to_string(getHP()) + " (" + to_string(getLocation().getX())  + "," \
-        + to_string(getLocation().getY()) + ")" + to_string(bullets_amount);
+        + to_string(getLocation().getY()) + ") " + to_string(bullets_amount);
     }
     else{
         print = "C (" + getName() + ")";
