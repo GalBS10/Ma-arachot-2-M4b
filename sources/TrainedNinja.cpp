@@ -18,5 +18,5 @@ TrainedNinja::TrainedNinja(string _name, Point _place) : Ninja( _place, 120, _na
 // }
 
 void TrainedNinja::move(Character *enemy){
-    this->setPlace(this->getPlace().moveTowards(this->getPlace(),enemy->getPlace(),12));//may causee some problems.
+    this->setPlace(this->getLocation().moveTowards(this->getLocation(),enemy->getLocation(),12));//may causee some problems.
 }

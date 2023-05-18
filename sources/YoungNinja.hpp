@@ -6,10 +6,10 @@
 class YoungNinja : public Ninja
 {
     private:
-    
+        
     public:
         YoungNinja(string name, Point place);
-        string print() override;
+        // string print() override;
         void move(Character *enemy) override;
     
 };

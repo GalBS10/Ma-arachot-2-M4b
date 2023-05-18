@@ -1,7 +1,7 @@
 #include "Character.hpp"
 #include "Point.hpp"
 
-Character::Character(Point _place, int hitpoint, string _name) : place(_place), HP(hitpoint), name(_name)
+Character::Character(Point _place, int hitpoint, string _name, int _type) : place(_place), HP(hitpoint), name(_name), type(_type)
 {
 }
 Character::Character(const Character& other)
@@ -43,8 +43,11 @@ bool Character::isAlive(){
 int Character::getHP(){
     return HP;
 }
-Point Character::getPlace(){
+Point Character::getLocation(){
     return place;
+}
+int Character::getType(){
+    return type;
 }
 void Character::setPlace(const Point& new_place){
     this->place = new_place;

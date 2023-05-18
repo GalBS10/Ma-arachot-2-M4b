@@ -6,7 +6,7 @@ using namespace std;
 
 
 Cowboy::Cowboy(string _name, Point _place)
-: Character(_place,110,_name)
+: Character(_place,110,_name,1)
 {
     bullets_amount = 6;
 }
@@ -16,8 +16,8 @@ string Cowboy::print()
     string print = "";
     if(isAlive()){
 
-        print = "C " + getName() + " " + to_string(getHP()) + " (" + to_string(getPlace().getX())  + "," \
-        + to_string(getPlace().getY()) + ")" + to_string(bullets_amount);
+        print = "C " + getName() + " " + to_string(getHP()) + " (" + to_string(getLocation().getX())  + "," \
+        + to_string(getLocation().getY()) + ")" + to_string(bullets_amount);
     }
     else{
         print = "C (" + getName() + ")";

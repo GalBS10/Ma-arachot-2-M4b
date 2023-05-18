@@ -9,7 +9,7 @@ class OldNinja : public Ninja
 
     public:
         OldNinja(string name, Point place);
-        string print();
+        // string print() override;
         void move(Character *enemy) override;
 
 

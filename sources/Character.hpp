@@ -4,14 +4,17 @@
 #include "Point.hpp"
 #include <string>
 
+using namespace std;
+
 class Character {
 private:
     Point place;
     int HP; // hit point
-    std::string name;
+    string name;
+    int type;
 
 public:
-    Character(Point _place, int hitpoint, std::string _name);
+    Character(Point _place, int hitpoint, string _name, int type);
     Character(const Character& other);
     //each chcaracter has a different destructor therefore need virtual
     virtual ~Character();
@@ -27,7 +30,8 @@ public:
     string getName();
     // Point getLoactaion();
     int getHP();
-    Point getPlace();
+    Point getLocation();
+    int getType();
     void setPlace(const Point& new_place);
 
     //each chcaracter has a different print therefore need virtual
