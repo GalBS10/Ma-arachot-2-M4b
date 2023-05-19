@@ -17,5 +17,8 @@ YoungNinja::YoungNinja(string _name, Point _place) : Ninja( _place, 100, _name, 
 //     return print;
 // }
 void YoungNinja::move(Character *enemy){
+    // cout << "in move of young ninja" << endl;
+    // getLocation().print();
     this->setPlace(this->getLocation().moveTowards(this->getLocation(),enemy->getLocation(),14));//may causee some problems.
+    // getLocation().print();
 }

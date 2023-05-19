@@ -17,12 +17,18 @@ void Point::print(){
 }
 
 Point Point::moveTowards(Point origin, Point destination, double distance) {
+    if(distance < 0){
+        throw invalid_argument ("can't move negetive length");
+    }
     // Calculate the direction vector from origin to destination
     double dx = destination.plain_x - origin.plain_x;
     double dy = destination.plain_y - origin.plain_y;
     
     // Calculate the distance between origin and destination
     double dist = sqrt(dx*dx + dy*dy);
+    if(dist <= distance){
+        return destination;
+    }
     
     // Normalize the direction vector
     double directionX = dx / dist;

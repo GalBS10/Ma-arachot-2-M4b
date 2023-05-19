@@ -56,7 +56,10 @@ double Character::distance(Character* other){
     return place.distance(other->place);
 }
 void Character::hit(int damage){
+    // cout << print() <<endl;
     HP-=damage;
+    // cout << print() <<endl;
+    
     if(HP<0){
         HP = 0;
     }

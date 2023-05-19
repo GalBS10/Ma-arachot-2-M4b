@@ -33,12 +33,16 @@ int Cowboy::getBullets()
 
 void Cowboy::shoot(Character* enemy)
 {
+    // cout << "in shoot" << endl;
     if(isAlive()){
+        // cout << "is Alive" << endl;
         if(hasboolets()){
+            // cout << "has bullets" << endl;
             enemy->hit(10);
             bullets_amount--;
         }
         else{
+            // cout << "reload" << endl;
             reload();
         }
     }
