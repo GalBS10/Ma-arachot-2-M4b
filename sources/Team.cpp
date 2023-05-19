@@ -4,24 +4,17 @@
 using namespace ariel;
 
 Team::Team(Character* char_leader) : leader(char_leader) {
+    if(char_leader->getInTeam()){
+        throw runtime_error ("can't be in different groups");
+    }
     team.emplace_back(char_leader);
+    char_leader->setInTeam(true);
 }
 
 Team::Team(const Team& other_team) : team(other_team.team), leader(other_team.leader) {
-    // Create copies of the characters in the other team
-    // for (auto member : other.team) {
-    //     if(member.getType()==1){//Cowboy
-    //         Character* newCharacter = &member;
-    //         team.emplace_back(newCharacter);
-    //         if (member == other.leader) {
-    //             leader = newCharacter;
-    //         }
-    //     }
-    // }
 }
 
 Team::Team(Team&& other) noexcept : team(std::move(other.team)), leader(other.leader) {
-
 }
 
 Team::~Team() {
@@ -52,76 +45,71 @@ Team& Team::operator=(Team&& other) noexcept
 }
 
 void Team::add(Character* new_char){
+    if(team.size()>=10){
+        throw runtime_error ("can't be more then 10 members");
+    }
+    if(new_char->getInTeam()){
+        throw runtime_error ("can't be in different groups");
+    }
     team.emplace_back(new_char);//didn't use push because thar way is more efficient
+    new_char->setInTeam(true);
 }
 void Team::attack(Team* enemy_team){
 
-    if(enemy_team == NULL){
-        throw runtime_error ("enemy team is null");
+    if(enemy_team == nullptr){
+        throw invalid_argument ("enemy team is null");
     }
-    // cout << "in team : 1" << endl;
-    // cout << "attacking team ";
     if(this->stillAlive()==0){
         throw runtime_error ("enemy team is alredy dead");
     }
-    // cout << "in team : 2" << endl;
     if(!leader->isAlive()){
         set_closest(this);
     }
-    // cout << "in team : 3" << endl;
     Character* victim = set_closest(enemy_team);
-    // cout << "victim HP = "<<victim->getHP() << endl;
-    // int c = 0;
     for(Character* member : team){
-        // c++;
-        // cout << "in team : c = " << c << endl;
-        // cout <<"enemy team ";
-        if(enemy_team->stillAlive() == 0){
-            return;
-        }
-        if(!victim->isAlive()){
-            victim = set_closest(enemy_team);
-            if(victim == nullptr){
+        if(member->isAlive()){
+            if(enemy_team->stillAlive() == 0){
                 return;
             }
-            // cout << "victim " << victim->print() << endl;
-        }
-        if(member->getType()==1){//The Character is a Cowboy
-            // cout << "in type = 1" << endl;
-            Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
-            tmp_cowboy->shoot(victim);
-        }
-    }
-    // cout << victim->getType() << " " << victim->getHP() << endl;
-    // cout << "after for" << endl;
-    // cout << "in team : 4" << endl;
-    // c = 0;
-    for(Character* member : team){
-        // c++;
-        // cout << "in team : c = " << c << endl;
-        if(enemy_team->stillAlive() == 0){
-            return;
-        }
-        // cout << "in team : c = " << c << endl;
-        if(!victim->isAlive()){
-            victim = set_closest(enemy_team);
-            if(victim == nullptr){
-                return;
+            if(!victim->isAlive()){
+                victim = set_closest(enemy_team);
+                if(victim == nullptr){
+                    return;
+                }
+            }
+            if(member->getType()==1){//The Character is a Cowboy
+                Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
+                if(tmp_cowboy->hasboolets()){
+                    tmp_cowboy->shoot(victim);
+                }
+                else{
+                    tmp_cowboy->reload();
+                }
             }
         }
-        // cout << "in team : c = " << c << endl;
-        if(member->getType()==0){//The Character is a Ninja
-            // cout << "here" << endl;
-            Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
-            //  cout << "here2" << endl;
-            tmp_ninja->slash(victim);
-            //  cout << "here3" << endl;
-        }
-        // cout << "in team : c = " << c << endl;
     }
-    // cout << victim->getHP() << endl;
-    // cout << victim->isAlive() << endl;
-    // cout << "exit attack" << endl;
+    for(Character* member : team){
+        if(member->isAlive()){
+            if(enemy_team->stillAlive() == 0){
+                return;
+            }
+            if(!victim->isAlive()){
+                victim = set_closest(enemy_team);
+                if(victim == nullptr){
+                    return;
+                }
+            }
+            if(member->getType()==0){//The Character is a Ninja
+                Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
+                if(tmp_ninja->distance(victim)<1){
+                    tmp_ninja->slash(victim);
+                }
+                else{
+                    tmp_ninja->move(victim);
+                }
+            }
+        }
+    }
 }
 
 Character* Team::set_closest(Team* group){

@@ -30,6 +30,9 @@ Character* Team2::set_closest(Team* group)
 
 void Team2::attack(Team* enemy_team)
 {
+    if(enemy_team == nullptr){
+        throw invalid_argument ("enemy team is null");
+    }
     if(this->stillAlive()==0){
         return;
     }
@@ -38,19 +41,21 @@ void Team2::attack(Team* enemy_team)
     }
     Character* victim = set_closest(enemy_team);
     for(Character* member : team){
-        if(enemy_team->stillAlive() == 0){
-            return;
-        }
-        if(!victim->isAlive()){
-            victim = set_closest(enemy_team);
-        }
-        if(victim->getType()==0){//The Character is a Ninja
-            Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
-            tmp_ninja->slash(victim);
-        }
-        else{//The Character is a Cowboy
-            Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
-            tmp_cowboy->shoot(victim);
+        if(member->isAlive()){
+            if(enemy_team->stillAlive() == 0){
+                return;
+            }
+            if(!victim->isAlive()){
+                victim = set_closest(enemy_team);
+            }
+            if(victim->getType()==0){//The Character is a Ninja
+                Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
+                tmp_ninja->slash(victim);
+            }
+            else{//The Character is a Cowboy
+                Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
+                tmp_cowboy->shoot(victim);
+            }
         }
     }
 

@@ -33,20 +33,23 @@ int Cowboy::getBullets()
 
 void Cowboy::shoot(Character* enemy)
 {
-    // cout << "in shoot" << endl;
+    if(enemy == this){
+        throw runtime_error ("can't shoot yourself");
+    }
     if(isAlive()){
-        // cout << "is Alive" << endl;
-        if(hasboolets()){
-            // cout << "has bullets" << endl;
-            enemy->hit(10);
-            bullets_amount--;
+        if(enemy->isAlive()){
+            if(hasboolets()){
+                enemy->hit(10);
+                bullets_amount--;
+            }
         }
         else{
-            // cout << "reload" << endl;
-            reload();
+            throw runtime_error ("members can't attack the deads");
         }
     }
-
+    else{
+        throw runtime_error ("dead members can't attack");
+    }
 }
 bool Cowboy::hasboolets()
 {
@@ -55,5 +58,8 @@ bool Cowboy::hasboolets()
 
 void Cowboy::reload()
 {
+    if(!isAlive()){
+        throw runtime_error ("dead cowboy cant reload");
+    }
     bullets_amount = 6;
 }

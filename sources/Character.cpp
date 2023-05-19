@@ -3,6 +3,7 @@
 
 Character::Character(Point _place, int hitpoint, string _name, int _type) : place(_place), HP(hitpoint), name(_name), type(_type)
 {
+    in_team = false;
 }
 Character::Character(const Character& other)
     : place(other.place), HP(other.HP), name(other.name)
@@ -49,16 +50,23 @@ Point Character::getLocation(){
 int Character::getType(){
     return type;
 }
+bool Character::getInTeam(){
+    return in_team;
+}
 void Character::setPlace(const Point& new_place){
     this->place = new_place;
+}
+void Character::setInTeam(bool flag){
+    in_team = flag;
 }
 double Character::distance(Character* other){
     return place.distance(other->place);
 }
 void Character::hit(int damage){
-    // cout << print() <<endl;
+    if(damage < 0){
+        throw invalid_argument ("can't hit negetive damage");
+    }
     HP-=damage;
-    // cout << print() <<endl;
     
     if(HP<0){
         HP = 0;

@@ -14,11 +14,10 @@ constexpr int SIZE = 10;
 namespace ariel {};
 
 class Team {
-    private:
-
     public:
         std::list<Character*> team;
         Character* leader;
+
         Team(Character* char_leader);
         Team(const Team& other);
         Team(Team&& other) noexcept; // Marked as noexcept

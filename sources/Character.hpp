@@ -12,6 +12,7 @@ private:
     int HP; // hit point
     string name;
     int type;
+    bool in_team;
 
 public:
     Character(Point _place, int hitpoint, string _name, int type);
@@ -32,7 +33,9 @@ public:
     int getHP();
     Point getLocation();
     int getType();
+    bool getInTeam();
     void setPlace(const Point& new_place);
+    void setInTeam(bool flag);
 
     //each chcaracter has a different print therefore need virtual
     virtual string print();

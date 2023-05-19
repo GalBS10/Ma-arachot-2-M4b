@@ -7,22 +7,21 @@ Ninja::Ninja(Point _place, int _HP, string _name, int _speed) : Character(_place
 
 void Ninja::slash(Character* enemy)
 {
-    // cout << getName() << " attcking " << enemy->getName() << endl;
-    //  cout << "in slash" << endl;
+    if(enemy == this){
+        throw runtime_error ("can't shoot yourself");
+    }
     if(isAlive()){
-        // cout << "in slash : in if 1" << endl;
-        // cout << distance(enemy) << endl;
-        if(this->distance(enemy) < 1){
-            // cout << "in slash : in if 2" << endl;
-            enemy->hit(40);
+        if(enemy->isAlive()){
+            if(this->distance(enemy) < 1){
+                enemy->hit(40);
+            }
         }
         else{
-            // cout << "in slash in else" << endl;
-            // cout << print() << endl;
-            // cout << "blah" << endl;
-            this->move(enemy);
-            // cout << "in slash in else after move" << endl;
+            throw runtime_error ("ninja members can't attack the deads");
         }
+    }
+    else{
+        throw runtime_error ("dead members can't attack");
     }
 }
 string Ninja::print()
