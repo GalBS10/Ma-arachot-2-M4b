@@ -34,10 +34,13 @@ void Team2::attack(Team* enemy_team)
         throw invalid_argument ("enemy team is null");
     }
     if(this->stillAlive()==0){
-        return;
+        throw runtime_error ("team is alredy dead");
+    }
+    if(enemy_team->stillAlive()==0){
+        throw runtime_error ("enemy team is alredy dead");
     }
     if(!leader->isAlive()){
-        set_closest(this);
+        leader = set_closest(this);
     }
     Character* victim = set_closest(enemy_team);
     for(Character* member : team){

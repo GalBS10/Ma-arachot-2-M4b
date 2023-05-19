@@ -60,10 +60,13 @@ void Team::attack(Team* enemy_team){
         throw invalid_argument ("enemy team is null");
     }
     if(this->stillAlive()==0){
+        throw runtime_error ("team is alredy dead");
+    }
+    if(enemy_team->stillAlive()==0){
         throw runtime_error ("enemy team is alredy dead");
     }
     if(!leader->isAlive()){
-        set_closest(this);
+        leader = set_closest(this);
     }
     Character* victim = set_closest(enemy_team);
     for(Character* member : team){
@@ -121,10 +124,6 @@ Character* Team::set_closest(Team* group){
             if(this->leader != member && member->isAlive() == 1){
                 dist = this->leader->distance(member);
                 if(dist < min){
-                    // // cout << "new victim = " << member->print() <<endl;
-                    // bool a = member->isAlive();
-                    // cout << a << endl;
-
                     min = dist;
                     answer = member;
                 }
@@ -134,10 +133,7 @@ Character* Team::set_closest(Team* group){
     for(Character* member : group->team){
         if(member->getType()==0){//Ninja
             if(this->leader != member && member->isAlive() == 1){
-                // cout << "new victim = " << member->print() <<endl;
-                    // bool a = member->isAlive();
-                    // cout << a << endl;
-                // dist = this->leader->distance(member);
+                dist = this->leader->distance(member);
                 if(dist < min){
                     min = dist;
                     answer = member;
@@ -149,30 +145,22 @@ Character* Team::set_closest(Team* group){
 }
 
 int Team::stillAlive(){
-    // cout << "lives: " << endl;
     int how_many_alive = 0;
-    // cout << "in cowboy" << endl;
     for(Character* member : team){
         if(member->getType()==1){//Cowboy
             if(member->isAlive() ==1){
-                // cout << member->print() << endl;
                 how_many_alive++;
             }
         }
     }
-    // cout << "out of cowboy" << endl;
 
-    // cout << "in ninja" << endl;
     for(Character* member : team){
         if(member->getType()==0){//Ninja
             if(member->isAlive() == 1){
-                // cout << member->print() << endl;
                 how_many_alive++;
             }
         }
     }
-    //     cout << "out of ninja" << endl;
-    // cout << endl;
 
     return how_many_alive;
 }
