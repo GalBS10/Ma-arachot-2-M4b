@@ -10,7 +10,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <cassert>
-#include <unistd.h>
 using namespace std;
 
 #include "sources/Team.hpp" //no need for other includes
@@ -19,15 +18,12 @@ using namespace ariel;
 
 
 int main() {
-   // cout << "1" << endl;
-   // sleep(1);
     Point a(32.3,44),b(1.3,3.5);
     assert(a.distance(b) == b.distance(a));
     Cowboy *tom = new Cowboy("Tom", a);
     OldNinja *sushi = new OldNinja("sushi", b);
     tom->shoot(sushi);
     cout << tom->print() <<endl;
-   //  cout << tom->isAlive() <<endl;
 
     sushi->move(tom);
     sushi->slash(tom);
@@ -39,18 +35,10 @@ int main() {
 
      Team team_B(sushi);
      team_B.add(new TrainedNinja("Hikari", Point(12,81)));
-   //   cout << "2" << endl;
-   //   sleep(1);
 
-      // int counter = 0;
+
      while(team_A.stillAlive() > 0 && team_B.stillAlive() > 0){
-      // sleep(1);
-         // counter++;
-         // cout << "counter = " << counter << endl;
-         // cout << "team_A is attacking" << endl;
-        team_A.attack(&team_B);//problem is here.
-      //   cout << "team_B is attacking" << endl;
-      //   sleep(1);
+        team_A.attack(&team_B);
         team_B.attack(&team_A);
         team_A.print();
         team_B.print();

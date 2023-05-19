@@ -17,6 +17,8 @@ void Ninja::slash(Character* enemy)
             }
         }
         else{
+            cout << "ninja attacker : " << this->print() <<endl;
+            cout << "defender : " << enemy->print() << endl;
             throw runtime_error ("ninja members can't attack the deads");
         }
     }

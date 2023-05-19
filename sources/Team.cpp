@@ -69,6 +69,7 @@ void Team::attack(Team* enemy_team){
         leader = this->set_closest(this);
     }
     Character* victim = this->set_closest(enemy_team);
+    int i = 0;
     for(Character* member : team){
         if(member->isAlive()){
             if(enemy_team->stillAlive() == 0){
