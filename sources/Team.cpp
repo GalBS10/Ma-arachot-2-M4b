@@ -55,7 +55,7 @@ void Team::add(Character* new_char){
     new_char->setInTeam(true);
 }
 void Team::attack(Team* enemy_team){
-
+    
     if(enemy_team == nullptr){
         throw invalid_argument ("enemy team is null");
     }
@@ -66,19 +66,20 @@ void Team::attack(Team* enemy_team){
         throw runtime_error ("enemy team is alredy dead");
     }
     if(!leader->isAlive()){
-        leader = set_closest(this);
+        leader = this->set_closest(this);
     }
-    Character* victim = set_closest(enemy_team);
+    Character* victim = this->set_closest(enemy_team);
     for(Character* member : team){
         if(member->isAlive()){
             if(enemy_team->stillAlive() == 0){
                 return;
             }
             if(!victim->isAlive()){
-                victim = set_closest(enemy_team);
+                victim = this->set_closest(enemy_team);
                 if(victim == nullptr){
                     return;
                 }
+                
             }
             if(member->getType()==1){//The Character is a Cowboy
                 Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
@@ -91,13 +92,14 @@ void Team::attack(Team* enemy_team){
             }
         }
     }
+    
     for(Character* member : team){
         if(member->isAlive()){
             if(enemy_team->stillAlive() == 0){
                 return;
             }
             if(!victim->isAlive()){
-                victim = set_closest(enemy_team);
+                victim = this->set_closest(enemy_team);
                 if(victim == nullptr){
                     return;
                 }
@@ -113,6 +115,7 @@ void Team::attack(Team* enemy_team){
             }
         }
     }
+    return;
 }
 
 Character* Team::set_closest(Team* group){
@@ -169,14 +172,14 @@ void Team::print(){
     for(Character* member : team){
         if(member->getType()==1){
             Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
-            tmp_cowboy->print();
+            cout << tmp_cowboy->print() << endl;
         }
     }
 
     for(Character* member : team){
         if(member->getType() == 0){//Ninja
             Ninja* tmp_ninja = static_cast<Ninja*>(member);
-            tmp_ninja->print();
+            cout << tmp_ninja->print() << endl;
         }
     }
 

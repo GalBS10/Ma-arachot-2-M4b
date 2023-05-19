@@ -16,14 +16,15 @@ Character* Team2::set_closest(Team* group)
 {
     double min = std::numeric_limits<double>::max();
     double dist = 0;
-    Character* answer  = leader;
-    for(Character* member : team){
-        if(this->leader != member && member->isAlive())
+    Character* answer  = nullptr;
+    for(Character* member : group->team){
+        if(this->leader != member && member->isAlive()){
             dist = this->leader->distance(member);
             if(dist < min){
                 min = dist;
                 answer = member;
             }
+        }
     }
     return answer;
 }
@@ -40,24 +41,38 @@ void Team2::attack(Team* enemy_team)
         throw runtime_error ("enemy team is alredy dead");
     }
     if(!leader->isAlive()){
-        leader = set_closest(this);
+        leader = this->set_closest(this);
     }
-    Character* victim = set_closest(enemy_team);
+    Character* victim = this->set_closest(enemy_team);
     for(Character* member : team){
         if(member->isAlive()){
             if(enemy_team->stillAlive() == 0){
                 return;
             }
             if(!victim->isAlive()){
-                victim = set_closest(enemy_team);
+                victim = this->set_closest(enemy_team);
+                if(victim == nullptr){
+                    return;
+                }
             }
             if(victim->getType()==0){//The Character is a Ninja
                 Ninja* tmp_ninja = static_cast<Ninja*>(member);//My friend "Yuval yurzd" helped me with it.
+                if(tmp_ninja->distance(victim)<1){
+                    tmp_ninja->slash(victim);
+                }
+                else{
+                    tmp_ninja->move(victim);
+                }
                 tmp_ninja->slash(victim);
             }
             else{//The Character is a Cowboy
                 Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
-                tmp_cowboy->shoot(victim);
+                if(tmp_cowboy->hasboolets()){
+                    tmp_cowboy->shoot(victim);
+                }
+                else{
+                    tmp_cowboy->reload();
+                }
             }
         }
     }
@@ -68,11 +83,11 @@ void Team2::print()
     for(Character* member : team){
         if(member->getType() == 0){//Ninja
             Ninja* tmp_ninja = static_cast<Ninja*>(member);
-            tmp_ninja->print();
+            cout <<tmp_ninja->print() << endl;
         }
         else{
             Cowboy* tmp_cowboy = static_cast<Cowboy*>(member);
-            tmp_cowboy->print();
+            cout << tmp_cowboy->print() << endl;
         }
     }
 
