@@ -21,6 +21,7 @@ class Team2 : public Team
         Character* set_closest(Team* group) override;
         void attack(Team* enemy_team) override;
         void print() override;
+        int stillAlive() override;
 
 };
 

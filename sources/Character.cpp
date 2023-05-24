@@ -76,10 +76,6 @@ string Character::getName(){
     return name;
 }
 
-// Point Character::getLoactaion(){
-//     return place;
-// }
-
 string Character::print()
 {
     return "Character";

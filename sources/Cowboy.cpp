@@ -33,12 +33,9 @@ int Cowboy::getBullets()
 
 void Cowboy::shoot(Character* enemy)
 {
-    cout << "----------shoot----------" <<endl;
     if(enemy == this){
         throw runtime_error ("can't shoot yourself");
     }
-    cout << "attacker -  : " << this->print() <<endl;
-    cout << "defender -  : " << enemy->print() << endl;
     if(isAlive()){
         if(enemy->isAlive()){
             if(hasboolets()){
@@ -53,7 +50,6 @@ void Cowboy::shoot(Character* enemy)
     else{
         throw runtime_error ("dead members can't attack");
     }
-    cout << "----------out of shoot----------" <<endl;
 }
 bool Cowboy::hasboolets()
 {

@@ -7,6 +7,7 @@
 #include "YoungNinja.hpp"
 #include "TrainedNinja.hpp"
 // #include "Team2.hpp"
+// #include "smartTeam.hpp"
 #include <list>
 
 constexpr int SIZE = 10;
@@ -27,7 +28,7 @@ class Team {
 
         void add(Character* new_char);
         virtual void attack(Team* enemy_team);
-        int stillAlive();
+        virtual int stillAlive();
         virtual void print();
         virtual Character* set_closest(Team* group);
 };
